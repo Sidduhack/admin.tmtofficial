@@ -37,7 +37,6 @@ export const supabaseAdmin = () => {
   if (typeof window !== "undefined") {
     throw new Error("supabaseAdmin should only be used on the server");
   }
-  const { createClient } = require("@supabase/supabase-js");
   return createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,

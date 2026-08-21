@@ -129,20 +129,20 @@ export function VideoCard({ video, variant = "standard", index = 0 }: VideoCardP
 
         {badges.length > 0 && (
           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-            {badges.map((badge) =>
-              motion.span({
-                ...badge.props,
-                className: cn(
+            {badges.map((badge) => (
+              <motion.span
+                {...badge.props}
+                className={cn(
                   "badge px-2.5 py-1 text-xs font-display font-semibold rounded-full border",
                   "transition-all duration-300",
                   "hover:scale-105 hover:shadow-glow-cyan",
                   badge.props.className
-                ),
-                initial={{ opacity: 0, y: -10 }},
-                animate={{ opacity: 1, y: 0 }},
+                )}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-              })
-            )}
+              />
+            ))}
           </div>
         )}
 

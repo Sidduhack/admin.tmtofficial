@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
 import * as THREE from "three";
-import { EffectComposer, RenderPass, UnrealBloomPass } from "three/examples/jsm/postprocessing";
+import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
 import { useSound, useScroll } from "@/lib/sound";
 import { Button } from "@/components/ui/Button";

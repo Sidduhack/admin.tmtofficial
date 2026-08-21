@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
 import * as THREE from "three";
-import { EffectComposer, RenderPass, UnrealBloomPass } from "three/examples/jsm/postprocessing";
+import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
 import { useSound } from "@/lib/sound";
 

@@ -1,4 +1,5 @@
 import { createBrowserClient, createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
 
 export function createClient() {

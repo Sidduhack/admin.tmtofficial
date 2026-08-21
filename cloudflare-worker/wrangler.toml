@@ -1,0 +1,19 @@
+name = "tmt-email-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+EMAIL_FROM = "noreply@tmtofficial.com"
+EMAIL_FROM_NAME = "TMT OFFICIAL"
+
+[triggers]
+crons = ["*/15 * * * *"]
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+[observability]
+enabled = true

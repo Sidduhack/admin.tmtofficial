@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase";
+import type { Database } from "@/types/database";
+
+type VideoUpdate = Database["public"]["Tables"]["videos"]["Update"];
+type VideoInsert = Database["public"]["Tables"]["videos"]["Insert"];
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 
@@ -114,7 +118,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
-      const updateData = {
+      const updateData: VideoUpdate = {
         ...videoWithToggles,
         synced_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
@@ -134,7 +138,7 @@ export async function POST(request: NextRequest) {
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      })
+      } as VideoInsert)
       .select("id")
       .single();
 

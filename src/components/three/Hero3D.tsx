@@ -7,7 +7,7 @@ import { gsap } from "gsap";
 import { useSound } from "@/lib/sound";
 import { Button } from "@/components/ui/Button";
 
-function HeroLogo({ time: _time }: { time: number }) {
+function HeroLogo() {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -52,7 +52,7 @@ function HeroLogo({ time: _time }: { time: number }) {
   );
 }
 
-function EnergyRing({ time: _time, radius, color, speed, intensity }: { time: number; radius: number; color: string; speed: number; intensity: number }) {
+function EnergyRing({ radius, color, speed, intensity }: { radius: number; color: string; speed: number; intensity: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
@@ -153,7 +153,7 @@ function FloatingParticles({ count = 1500, time: _time }: { count?: number; time
   );
 }
 
-function GridPlane({ time: _time }: { time: number }) {
+function GridPlane() {
   const gridRef = useRef<THREE.GridHelper>(null);
 
   useFrame((state) => {
@@ -171,7 +171,7 @@ function GridPlane({ time: _time }: { time: number }) {
   );
 }
 
-function VolumetricLight({ time: _time }: { time: number }) {
+function VolumetricLight() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {

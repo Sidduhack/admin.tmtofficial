@@ -148,7 +148,6 @@ function ParticleField({ count = 2000, active }: { count?: number; active: boole
 
   useFrame((state) => {
     if (pointsRef.current) {
-      const _time = state.clock.getElapsedTime();
       const positions = pointsRef.current.geometry.attributes.position;
       const velocities = pointsRef.current.geometry.attributes.userData as THREE.BufferAttribute;
 

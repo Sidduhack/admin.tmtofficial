@@ -29,14 +29,14 @@ export function DesktopNavigation() {
     resumeContext();
   }, [resumeContext]);
 
-  const handleItemClick = useCallback((index: number) => {
+  const handleItemClick = useCallback((_index: number) => {
     playUIClick();
     setExpanded(false);
   }, [playUIClick]);
 
-  const handleItemHover = useCallback((index: number | null) => {
-    if (index !== null) playUIHover();
-    setHoveredIndex(index);
+  const handleItemHover = useCallback((_index: number | null) => {
+    if (_index !== null) playUIHover();
+    setHoveredIndex(_index);
   }, [playUIHover]);
 
   const activeIndex = NAV_ITEMS.findIndex((item) => pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));

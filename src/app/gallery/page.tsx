@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSound } from "@/lib/sound";
@@ -38,17 +38,17 @@ export default function GalleryPage() {
     setLightboxIndex((prev) => (prev + direction + MOCK_GALLERY.length) % MOCK_GALLERY.length);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!lightboxOpen) return;
     if (e.key === "Escape") setLightboxOpen(false);
     if (e.key === "ArrowLeft") handleLightboxNavigate(-1);
     if (e.key === "ArrowRight") handleLightboxNavigate(1);
-  };
+  }, [lightboxOpen, handleLightboxNavigate]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxOpen]);
+  }, [lightboxOpen, handleKeyDown]);
 
   return (
     <div className="min-h-screen bg-abyss-black">

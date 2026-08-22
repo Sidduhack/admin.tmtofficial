@@ -63,7 +63,7 @@ function Monolith({ index, active, position }: { index: number; active: boolean;
         },
       });
     }
-  }, [active, playTone, playNoise]);
+  }, [active, playTone, playNoise, glowIntensity, index]);
 
   return (
     <group position={position}>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { Navigation } from "@/components/layout/Navigation";
@@ -233,7 +234,7 @@ function HighlightsTab() {
         <motion.article key={highlight.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
           <Card variant="glass" hover padding="none" className="overflow-hidden h-full flex flex-col">
             <div className="relative aspect-video overflow-hidden">
-              <img src={highlight.image} alt={highlight.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+              <Image src={highlight.image} alt={highlight.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="100vw" priority={i < 3} />
               <div className="absolute inset-0 bg-gradient-to-t from-abyss-black/80 via-transparent to-transparent" />
             </div>
             <div className="p-5 flex-1 flex flex-col">

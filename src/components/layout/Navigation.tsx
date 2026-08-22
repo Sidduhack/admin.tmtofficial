@@ -29,7 +29,7 @@ export function DesktopNavigation() {
     resumeContext();
   }, [resumeContext]);
 
-  const handleItemClick = useCallback((_index: number) => {
+  const handleItemClick = useCallback(() => {
     playUIClick();
     setExpanded(false);
   }, [playUIClick]);
@@ -119,7 +119,7 @@ export function DesktopNavigation() {
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan",
                   activeIndex === index && "bg-neon-cyan/10 border-neon-cyan text-neon-cyan shadow-glow-cyan"
                 )}
-                onClick={() => handleItemClick(index)}
+                onClick={handleItemClick}
                 onMouseEnter={() => handleItemHover(index)}
                 onMouseLeave={() => handleItemHover(null)}
                 whileTap={{ scale: 0.95 }}
@@ -250,7 +250,7 @@ export function MobileNavigation() {
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          onClick={() => handleItemClick(item.href)}
+                          onClick={handleItemClick}
                           className={cn(
                             "flex items-center gap-4 px-4 py-4 rounded-xl",
                             "font-display font-medium text-body-base",

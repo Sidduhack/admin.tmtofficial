@@ -22,7 +22,21 @@ const nextConfig = {
 
   experimental: {
     optimizePackageImports: ["@react-three/fiber", "@react-three/drei", "three", "gsap", "lucide-react"],
-    forceSwcTransforms: false,
+    forceSwcTransforms: true,
+  },
+
+  swc: {
+    jsc: {
+      parser: {
+        syntax: "typescript",
+        tsx: true,
+      },
+      transform: {
+        react: {
+          runtime: "automatic",
+        },
+      },
+    },
   },
 
   webpack: (config, { isServer, dev }) => {

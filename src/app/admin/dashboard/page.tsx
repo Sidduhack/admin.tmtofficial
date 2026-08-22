@@ -46,7 +46,7 @@ function StatCard({ title, value, change, changePositive, icon, color }: StatCar
 
 export default function AdminDashboard() {
   const { playUIClick } = useSound();
-  const [stats] = useState({
+  const [stats, setStats] = useState({
     visitors: { value: "12,341", change: "+12.5%", positive: true },
     pageViews: { value: "89,234", change: "+8.2%", positive: true },
     uniqueVisitors: { value: "9,876", change: "+15.1%", positive: true },

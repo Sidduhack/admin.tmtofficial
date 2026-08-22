@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { createServerSupabaseClient, supabaseAdmin } from "@/lib/supabase";
 import { z } from "zod";
 
 const feedbackSchema = z.object({
@@ -27,7 +27,9 @@ export async function POST(request: NextRequest) {
 
     const { data: { user } } = await supabase.auth.getUser();
 
-    const { error } = await supabase.from("feedback").insert({
+    const adminSupabase = supabaseAdmin();
+
+    const { error } = await adminSupabase.from("feedback").insert({
       user_id: user?.id || null,
       rating: parsed.data.rating,
       category: parsed.data.category,

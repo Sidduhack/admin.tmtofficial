@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface YouTubeSearchItem {
   id: { videoId: string };
@@ -92,7 +93,9 @@ interface VideoData {
   youtube_id: string;
 }
 
-async function sendNotificationEmails(supabase: ReturnType<typeof createServerSupabaseClient>, video: VideoData) {
+import { SupabaseClient } from "@supabase/supabase-js";
+
+async function sendNotificationEmails(supabase: SupabaseClient, video: VideoData) {
   const { data: subscriptions } = await supabase
     .from("notification_subscriptions")
     .select("id, email")
@@ -172,11 +175,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const supabase = createServerSupabaseClient({
-      get: () => undefined,
-      set: () => {},
-      remove: () => {},
-    });
+    const supabase = supabaseAdmin();
 
     const videos = await fetchLatestVideos(20);
     let added = 0;

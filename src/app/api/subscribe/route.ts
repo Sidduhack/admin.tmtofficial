@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { z } from "zod";
 import crypto from "crypto";
 
@@ -21,11 +21,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid input", details: parsed.error.flatten() }, { status: 400 });
     }
 
-    const supabase = createServerSupabaseClient({
-      get: () => undefined,
-      set: () => {},
-      remove: () => {},
-    });
+    const supabase = supabaseAdmin();
 
     const token = crypto.randomBytes(32).toString("hex");
 

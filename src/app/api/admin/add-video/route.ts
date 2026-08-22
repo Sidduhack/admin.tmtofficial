@@ -130,13 +130,12 @@ export async function POST(request: NextRequest) {
 
     const { data: inserted, error } = await supabase
       .from("videos")
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .insert({
         ...videoWithToggles,
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      } as any)
+      } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
       .select("id")
       .single();
 

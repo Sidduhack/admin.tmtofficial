@@ -70,8 +70,8 @@ interface VideoData {
   featured: boolean;
   challenge: boolean;
   popular: boolean;
-  synced_at: string;
-  updated_at: string;
+  synced_at?: string;
+  updated_at?: string;
   created_at?: string;
 }
 

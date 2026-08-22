@@ -22,7 +22,7 @@ const ADMIN_NAV = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, loading } = useAuth();
-  const { playUIClick } = useSound();
+  const { playUINav, playUIClick } = useSound();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {

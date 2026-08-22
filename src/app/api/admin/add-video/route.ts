@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 
@@ -83,11 +83,7 @@ export async function POST(request: NextRequest) {
       popular: popular === true,
     };
 
-    const supabase = createServerSupabaseClient({
-      get: () => undefined,
-      set: () => {},
-      remove: () => {},
-    });
+    const supabase = supabaseAdmin();
 
     const { data: existing } = await supabase
       .from("videos")
@@ -95,17 +91,15 @@ export async function POST(request: NextRequest) {
       .eq("youtube_id", videoId)
       .single();
 
-    if (existing) {
+if (existing) {
       const updateData = {
         ...videoWithToggles,
         synced_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await supabase
         .from("videos")
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .update(updateData as any)
+        .update(updateData)
         .eq("id", existing.id);
       if (error) throw error;
       return NextResponse.json({ success: true, updated: true, video: videoWithToggles });
@@ -118,7 +112,7 @@ export async function POST(request: NextRequest) {
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
+      })
       .select("id")
       .single();
 

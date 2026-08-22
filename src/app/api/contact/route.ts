@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -23,11 +23,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    const supabase = createServerSupabaseClient({
-      get: () => undefined,
-      set: () => {},
-      remove: () => {},
-    });
+    const supabase = supabaseAdmin();
 
     const { error } = await supabase.from("contact_messages").insert({
       name: parsed.data.name,

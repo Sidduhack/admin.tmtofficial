@@ -3,9 +3,9 @@
 import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
 import { useSound } from "@/lib/sound";
+import { Button } from "@/components/ui/Button";
 
 function HeroLogo({ time: _time }: { time: number }) {
   const groupRef = useRef<THREE.Group>(null);
@@ -285,11 +285,6 @@ export function Hero3D() {
 
         <MouseParallax />
         <ScrollParallax />
-
-        <EffectComposer multisampling={4}>
-          <RenderPass />
-          <UnrealBloomPass resolutionScale={0.5} strength={0.8} radius={0.6} threshold={0.15} />
-        </EffectComposer>
       </Canvas>
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 md:px-8 pt-32 pb-20">

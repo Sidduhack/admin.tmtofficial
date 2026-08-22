@@ -3,7 +3,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
 import { useSound } from "@/lib/sound";
 
@@ -528,16 +527,6 @@ export function IntroExperience({ onComplete, isReturningVisitor, onSkip }: Intr
         <Shockwave trigger={activePhase === "impact" ? performance.now() : 0} />
 
         <CinematicCamera phase={activePhase} progress={phaseProgress} />
-
-        <EffectComposer multisampling={4}>
-          <RenderPass />
-          <UnrealBloomPass
-            resolutionScale={0.5}
-            strength={activePhase === "impact" ? 1.5 : activePhase === "reveal" ? 1 : 0.5}
-            radius={0.8}
-            threshold={0.1}
-          />
-        </EffectComposer>
       </Canvas>
 
       <div className="absolute bottom-8 right-8 z-10">

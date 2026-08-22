@@ -153,7 +153,7 @@ export function DesktopNavigation() {
 
 export function MobileNavigation() {
   const pathname = usePathname();
-  const { playUINav, playUIHover, playUIClick, resumeContext } = useSound();
+  const { playUIHover, playUIClick, resumeContext } = useSound();
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -166,7 +166,7 @@ export function MobileNavigation() {
     setOpen(false);
   }, [playUIClick]);
 
-  const handleItemClick = useCallback((_href: string) => {
+  const handleItemClick = useCallback(() => {
     playUIClick();
     setOpen(false);
   }, [playUIClick]);

@@ -33,10 +33,10 @@ export default function GalleryPage() {
     setLightboxOpen(true);
   };
 
-  const handleLightboxNavigate = (direction: number) => {
+  const handleLightboxNavigate = useCallback((direction: number) => {
     playUIHover();
     setLightboxIndex((prev) => (prev + direction + MOCK_GALLERY.length) % MOCK_GALLERY.length);
-  };
+  }, []);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!lightboxOpen) return;

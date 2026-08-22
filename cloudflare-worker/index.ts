@@ -15,6 +15,11 @@ export interface Env {
   RESEND_API_KEY?: string;
 }
 
+interface ExecutionContext {
+  waitUntil(promise: Promise<unknown>): void;
+  passThroughOnException(): void;
+}
+
 async function sendViaSendGrid(payload: EmailPayload, apiKey: string): Promise<Response> {
   const sgPayload = {
     personalizations: [{ to: [{ email: payload.to }], subject: payload.subject }],

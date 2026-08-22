@@ -121,6 +121,7 @@ export async function POST(request: NextRequest) {
       };
       const { error } = await supabase
         .from("videos")
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .update(updateData as any)
         .eq("id", existing.id);
       if (error) throw error;
@@ -129,6 +130,7 @@ export async function POST(request: NextRequest) {
 
     const { data: inserted, error } = await supabase
       .from("videos")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .insert({
         ...videoWithToggles,
         synced_at: new Date().toISOString(),

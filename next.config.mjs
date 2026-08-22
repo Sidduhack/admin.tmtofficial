@@ -25,20 +25,6 @@ const nextConfig = {
     forceSwcTransforms: false,
   },
 
-  swc: {
-    jsc: {
-      parser: {
-        syntax: "typescript",
-        tsx: true,
-      },
-      transform: {
-        react: {
-          runtime: "automatic",
-        },
-      },
-    },
-  },
-
   webpack: (config, { isServer, dev }) => {
     if (!isServer) {
       config.resolve.fallback = {

@@ -96,13 +96,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
+      const updateData = {
+        ...videoWithToggles,
+        synced_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
       const { error } = await supabase
         .from("videos")
-        .update({
-          ...videoWithToggles,
-          synced_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        })
+        .update(updateData)
         .eq("id", existing.id);
       if (error) throw error;
       return NextResponse.json({ success: true, updated: true, video: videoWithToggles });

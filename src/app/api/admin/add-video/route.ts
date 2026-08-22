@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase";
-import type { Database } from "@/types/database";
-
-type VideoUpdate = Database["public"]["Tables"]["videos"]["Update"];
-type VideoInsert = Database["public"]["Tables"]["videos"]["Insert"];
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 
@@ -61,24 +57,6 @@ async function fetchVideoDetails(videoId: string) {
   };
 }
 
-interface VideoData {
-  youtube_id: string;
-  title: string;
-  description: string;
-  thumbnail_url: string | null;
-  duration: number;
-  view_count: number;
-  like_count: number;
-  published_at: string;
-  category: string;
-  featured: boolean;
-  challenge: boolean;
-  popular: boolean;
-  synced_at?: string;
-  updated_at?: string;
-  created_at?: string;
-}
-
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const adminSecret = process.env.ADMIN_API_SECRET;
@@ -97,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     const video = await fetchVideoDetails(videoId);
 
-    const videoWithToggles: VideoData = {
+    const videoWithToggles = {
       ...video,
       category: category || "Gaming",
       featured: featured === true,
@@ -118,14 +96,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
-      const updateData: VideoUpdate = {
+      const updateData = {
         ...videoWithToggles,
         synced_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
       const { error } = await supabase
         .from("videos")
-        .update(updateData)
+        .update(updateData as any)
         .eq("id", existing.id);
       if (error) throw error;
       return NextResponse.json({ success: true, updated: true, video: videoWithToggles });
@@ -138,7 +116,7 @@ export async function POST(request: NextRequest) {
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      } as VideoInsert)
+      } as any)
       .select("id")
       .single();
 

@@ -70,6 +70,9 @@ interface VideoData {
   featured: boolean;
   challenge: boolean;
   popular: boolean;
+  synced_at: string;
+  updated_at: string;
+  created_at?: string;
 }
 
 export async function POST(request: NextRequest) {

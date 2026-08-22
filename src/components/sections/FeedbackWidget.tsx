@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { Button } from "@/components/ui/Button";
 import { Input, Textarea } from "@/components/ui/Input";
+import { Card } from "@/components/ui/Card";
 import { trackFeedbackSubmit } from "@/lib/analytics";
 import { toast } from "sonner";
 

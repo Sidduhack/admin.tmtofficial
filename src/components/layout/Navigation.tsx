@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
 import { useSound } from "@/lib/sound";
 
 const NAV_ITEMS = [
@@ -20,7 +19,7 @@ const NAV_ITEMS = [
 
 export function DesktopNavigation() {
   const pathname = usePathname();
-  const { playUINav, playUIHover, playUIClick, resumeContext } = useSound();
+  const { playUIHover, playUIClick, resumeContext } = useSound();
   const [expanded, setExpanded] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const orbRef = useRef<HTMLDivElement>(null);
@@ -167,10 +166,10 @@ export function MobileNavigation() {
     setOpen(false);
   }, [playUIClick]);
 
-  const handleItemClick = useCallback((href: string) => {
-    playUINav();
+  const handleItemClick = useCallback((_href: string) => {
+    playUIClick();
     setOpen(false);
-  }, [playUINav]);
+  }, [playUIClick]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -247,7 +246,7 @@ export function MobileNavigation() {
 
                 <nav className="flex-1" aria-label="Main navigation">
                   <ul className="space-y-2" role="list">
-                    {NAV_ITEMS.map((item, index) => (
+{NAV_ITEMS.map((item, _index) => (
                       <li key={item.href}>
                         <Link
                           href={item.href}

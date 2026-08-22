@@ -17,7 +17,6 @@ const Hero3D = dynamic(
 
 export default function HomePage() {
   const [showIntro, setShowIntro] = useState(true);
-  const [introCompleted, setIntroCompleted] = useState(false);
   const [isReturningVisitor, setIsReturningVisitor] = useState(false);
   const { playUIClick, resumeContext } = useSound();
 

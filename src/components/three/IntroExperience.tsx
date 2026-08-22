@@ -1,13 +1,11 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
-import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
+import { useRef, useEffect, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
 import { useSound } from "@/lib/sound";
-
-extend({ EffectComposer, RenderPass, UnrealBloomPass });
 
 interface IntroPhase {
   name: string;
@@ -30,7 +28,7 @@ function Monolith({ index, active, position }: { index: number; active: boolean;
   const { playTone, playNoise } = useSound();
   const [glowIntensity, setGlowIntensity] = useState(0);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (meshRef.current) {
       const time = state.clock.getElapsedTime();
       meshRef.current.position.y = position.y + Math.sin(time * 0.5 + index) * 0.15;
@@ -151,7 +149,7 @@ function ParticleField({ count = 2000, active }: { count?: number; active: boole
 
   useFrame((state) => {
     if (pointsRef.current) {
-      const time = state.clock.getElapsedTime();
+      const _time = state.clock.getElapsedTime();
       const positions = pointsRef.current.geometry.attributes.position;
       const velocities = pointsRef.current.geometry.attributes.userData as THREE.BufferAttribute;
 
@@ -420,7 +418,7 @@ interface IntroExperienceProps {
 }
 
 export function IntroExperience({ onComplete, isReturningVisitor, onSkip }: IntroExperienceProps) {
-  const { playIntroSequence, playImpact, playWhoosh, playAmbience, resumeContext } = useSound();
+  const { playIntroSequence, playWhoosh, playAmbience, resumeContext } = useSound();
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [phaseProgress, setPhaseProgress] = useState(0);
   const [showSkip, setShowSkip] = useState(false);

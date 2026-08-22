@@ -1,5 +1,4 @@
 import { createServerSupabaseClient } from "@/lib/supabase";
-import type { Database } from "@/types/database";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "UC...";

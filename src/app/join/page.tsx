@@ -5,10 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { Navigation } from "@/components/layout/Navigation";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { toast } from "sonner";
@@ -37,7 +35,6 @@ export default function JoinPage() {
     register,
     handleSubmit,
     watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm<JoinFormData>({

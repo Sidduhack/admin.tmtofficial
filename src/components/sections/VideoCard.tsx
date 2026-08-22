@@ -6,7 +6,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn, formatNumber, formatDuration, formatRelativeTime } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
-import { Button } from "@/components/ui/Button";
 
 interface VideoCardProps {
   video: {
@@ -30,7 +29,6 @@ interface VideoCardProps {
 export function VideoCard({ video, variant = "standard", index = 0 }: VideoCardProps) {
   const { playUIHover, playUIClick, playNotification } = useSound();
   const [hovered, setHovered] = useState(false);
-  const [previewPlaying, setPreviewPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -129,8 +127,9 @@ export function VideoCard({ video, variant = "standard", index = 0 }: VideoCardP
 
         {badges.length > 0 && (
           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-            {badges.map((badge) => (
+            {badges.map((badge, i) => (
               <motion.span
+                key={i}
                 {...badge.props}
                 className={cn(
                   "badge px-2.5 py-1 text-xs font-display font-semibold rounded-full border",

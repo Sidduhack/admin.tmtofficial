@@ -3,11 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { cn, formatNumber } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { Navigation } from "@/components/layout/Navigation";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Button } from "@/components/ui/Button";
 
 const GALLERY_CATEGORIES = ["All", "Artwork", "Behind the Scenes", "Screenshots", "Events", "Promotional"];
 
@@ -24,7 +21,6 @@ export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
   const filteredImages = activeCategory === "All"
     ? MOCK_GALLERY

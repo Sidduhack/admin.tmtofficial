@@ -1,6 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase";
 
+interface YouTubeSearchItem {
+  id: { videoId: string };
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      maxres?: { url: string };
+      high?: { url: string };
+      medium?: { url: string };
+    };
+    publishedAt: string;
+  };
+}
+
+interface YouTubeVideoDetailsItem {
+  id: string;
+  contentDetails: { duration: string };
+  statistics: {
+    viewCount: string;
+    likeCount: string;
+  };
+}
+
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 
@@ -21,7 +44,7 @@ async function fetchLatestVideos(maxResults = 50) {
   if (!searchResponse.ok) throw new Error("YouTube search API failed");
   const searchData = await searchResponse.json();
 
-  const videoIds = searchData.items.map((item: any) => item.id.videoId).join(",");
+  const videoIds = searchData.items.map((item: YouTubeSearchItem) => item.id.videoId).join(",");
 
   const detailsUrl = new URL("https://www.googleapis.com/youtube/v3/videos");
   detailsUrl.searchParams.set("part", "contentDetails,statistics");
@@ -32,9 +55,9 @@ async function fetchLatestVideos(maxResults = 50) {
   if (!detailsResponse.ok) throw new Error("YouTube details API failed");
   const detailsData = await detailsResponse.json();
 
-  const detailsMap = new Map(detailsData.items.map((item: any) => [item.id, item]));
+  const detailsMap = new Map(detailsData.items.map((item: YouTubeVideoDetailsItem) => [item.id, item]));
 
-  return searchData.items.map((item: any) => {
+  return searchData.items.map((item: YouTubeSearchItem) => {
     const details = detailsMap.get(item.id.videoId);
     return {
       youtube_id: item.id.videoId,
@@ -62,7 +85,14 @@ function parseDuration(isoDuration: string): number {
   return hours * 3600 + minutes * 60 + seconds;
 }
 
-async function sendNotificationEmails(supabase: any, video: any) {
+interface VideoData {
+  id: string;
+  title: string;
+  thumbnail_url: string | null;
+  youtube_id: string;
+}
+
+async function sendNotificationEmails(supabase: ReturnType<typeof createServerSupabaseClient>, video: VideoData) {
   const { data: subscriptions } = await supabase
     .from("notification_subscriptions")
     .select("id, email")
@@ -151,7 +181,7 @@ export async function POST(request: NextRequest) {
     const videos = await fetchLatestVideos(20);
     let added = 0;
     let updated = 0;
-    const newVideos: any[] = [];
+    const newVideos: VideoData[] = [];
 
     for (const video of videos) {
       const { data: existing } = await supabase

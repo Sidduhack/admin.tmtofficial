@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { useAuth } from "@/app/providers";
-import { Button } from "@/components/ui/Button";
 import { Navigation } from "@/components/layout/Navigation";
 
 const ADMIN_NAV = [
@@ -23,7 +22,7 @@ const ADMIN_NAV = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, loading } = useAuth();
-  const { playUIHover, playUIClick } = useSound();
+  const { playUIClick } = useSound();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {

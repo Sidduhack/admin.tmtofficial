@@ -10,7 +10,7 @@ interface AnalyticsEvent {
 }
 
 let sessionId: string | null = null;
-let sessionStartTime = Date.now();
+const sessionStartTime = Date.now();
 
 function getSessionId(): string {
   if (typeof window === "undefined") return "ssr";

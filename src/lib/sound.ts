@@ -2,6 +2,16 @@
 
 import { useEffect, useRef, useCallback, useState } from "react";
 
+export function useScroll(): number {
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return scrollY;
+}
+
 export type SoundCategory =
   | "cinematic"
   | "ambience"
@@ -147,11 +157,10 @@ export function useSound() {
       const freqs = Array.isArray(frequency) ? frequency : [frequency];
       const now = state.context.currentTime;
       const gain = state.categoryGains[category];
-      const masterGain = state.masterGain!;
 
       if (muted || gain.gain.value === 0) return;
 
-      freqs.forEach((freq, i) => {
+      freqs.forEach((freq) => {
         const osc = state.context!.createOscillator();
         const oscGain = state.context!.createGain();
         const filter = state.context!.createBiquadFilter();

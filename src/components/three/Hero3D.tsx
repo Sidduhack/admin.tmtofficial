@@ -1,17 +1,13 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { EffectComposer, RenderPass, UnrealBloomPass } from "@react-three/postprocessing";
 import { gsap } from "gsap";
-import { useSound, useScroll } from "@/lib/sound";
-import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { useSound } from "@/lib/sound";
 
-extend({ EffectComposer, RenderPass, UnrealBloomPass });
-
-function HeroLogo({ time }: { time: number }) {
+function HeroLogo({ time: _time }: { time: number }) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -56,7 +52,7 @@ function HeroLogo({ time }: { time: number }) {
   );
 }
 
-function EnergyRing({ time, radius, color, speed, intensity }: { time: number; radius: number; color: string; speed: number; intensity: number }) {
+function EnergyRing({ time: _time, radius, color, speed, intensity }: { time: number; radius: number; color: string; speed: number; intensity: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
@@ -84,7 +80,7 @@ function EnergyRing({ time, radius, color, speed, intensity }: { time: number; r
   );
 }
 
-function FloatingParticles({ count = 1500, time }: { count?: number; time: number }) {
+function FloatingParticles({ count = 1500, time: _time }: { count?: number; time: number }) {
   const pointsRef = useRef<THREE.Points>(null);
 
   useFrame((state) => {
@@ -157,7 +153,7 @@ function FloatingParticles({ count = 1500, time }: { count?: number; time: numbe
   );
 }
 
-function GridPlane({ time }: { time: number }) {
+function GridPlane({ time: _time }: { time: number }) {
   const gridRef = useRef<THREE.GridHelper>(null);
 
   useFrame((state) => {
@@ -175,7 +171,7 @@ function GridPlane({ time }: { time: number }) {
   );
 }
 
-function VolumetricLight({ time }: { time: number }) {
+function VolumetricLight({ time: _time }: { time: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {

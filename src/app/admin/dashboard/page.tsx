@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { cn, formatNumber } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useSound } from "@/lib/sound";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -45,8 +45,8 @@ function StatCard({ title, value, change, changePositive, icon, color }: StatCar
 }
 
 export default function AdminDashboard() {
-  const { playUIHover, playUIClick } = useSound();
-  const [stats, setStats] = useState({
+  const { playUIClick } = useSound();
+  const [stats] = useState({
     visitors: { value: "12,341", change: "+12.5%", positive: true },
     pageViews: { value: "89,234", change: "+8.2%", positive: true },
     uniqueVisitors: { value: "9,876", change: "+15.1%", positive: true },
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
     joinRegistrations: { value: "567", change: "+34.2%", positive: true },
     feedbackCount: { value: "89", change: "+5", positive: true },
   });
-  const [recentActivity, setRecentActivity] = useState([
+  const [recentActivity] = useState([
     { id: 1, type: "join", message: "New subscriber: john@example.com", time: "2 min ago" },
     { id: 2, type: "feedback", message: "New feedback: 5★ - Videos category", time: "15 min ago" },
     { id: 3, type: "video", message: "Video synced: \"Elden Ring DLC First Impressions\"", time: "1 hour ago" },

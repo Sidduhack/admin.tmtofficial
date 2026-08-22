@@ -57,6 +57,21 @@ async function fetchVideoDetails(videoId: string) {
   };
 }
 
+interface VideoData {
+  youtube_id: string;
+  title: string;
+  description: string;
+  thumbnail_url: string | null;
+  duration: number;
+  view_count: number;
+  like_count: number;
+  published_at: string;
+  category: string;
+  featured: boolean;
+  challenge: boolean;
+  popular: boolean;
+}
+
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const adminSecret = process.env.ADMIN_API_SECRET;
@@ -75,7 +90,7 @@ export async function POST(request: NextRequest) {
 
     const video = await fetchVideoDetails(videoId);
 
-    const videoWithToggles = {
+    const videoWithToggles: VideoData = {
       ...video,
       category: category || "Gaming",
       featured: featured === true,
@@ -96,7 +111,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
-      const updateData = {
+      const updateData: VideoData = {
         ...videoWithToggles,
         synced_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
@@ -116,7 +131,7 @@ export async function POST(request: NextRequest) {
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      })
+      } as VideoData)
       .select("id")
       .single();
 

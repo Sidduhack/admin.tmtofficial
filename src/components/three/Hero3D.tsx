@@ -80,7 +80,7 @@ function EnergyRing({ radius, color, speed, intensity }: { radius: number; color
   );
 }
 
-function FloatingParticles({ count = 1500, time: _time }: { count?: number; time: number }) {
+function FloatingParticles({ count = 1500 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null);
 
   useFrame((state) => {

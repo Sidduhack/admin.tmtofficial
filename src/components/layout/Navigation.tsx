@@ -246,7 +246,7 @@ export function MobileNavigation() {
 
                 <nav className="flex-1" aria-label="Main navigation">
                   <ul className="space-y-2" role="list">
-{NAV_ITEMS.map((item, _index) => (
+{NAV_ITEMS.map((item) => (
                       <li key={item.href}>
                         <Link
                           href={item.href}

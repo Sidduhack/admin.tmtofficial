@@ -144,9 +144,9 @@ function ParticleField({ count = 2000, active }: { count?: number; active: boole
     } else {
       gsap.to({ val: opacity }, { val: 0, duration: 1, ease: "power2.out", onUpdate: function () { setOpacity(this.targets()[0].val); } });
     }
-  }, [active, opacity]);
-
-  useFrame((state) => {
+}, [active, opacity]);
+ 
+  useFrame(() => {
     if (pointsRef.current) {
       const positions = pointsRef.current.geometry.attributes.position;
       const velocities = pointsRef.current.geometry.attributes.userData as THREE.BufferAttribute;

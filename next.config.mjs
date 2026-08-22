@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  swcMinify: false,
+  swcMinify: true,
 
   images: {
     formats: ["image/avif", "image/webp"],
@@ -22,7 +22,7 @@ const nextConfig = {
 
   experimental: {
     optimizePackageImports: ["@react-three/fiber", "@react-three/drei", "three", "gsap", "lucide-react"],
-    forceSwcTransforms: true,
+    forceSwcTransforms: false,
   },
 
   webpack: (config, { isServer, dev }) => {

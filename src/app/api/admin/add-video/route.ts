@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
       };
       const { error } = await supabase
         .from("videos")
-        .update(updateData)
+        .update(updateData as any)
         .eq("id", existing.id);
       if (error) throw error;
       return NextResponse.json({ success: true, updated: true, video: videoWithToggles });
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
         synced_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      } as VideoData)
+      } as any)
       .select("id")
       .single();
 
